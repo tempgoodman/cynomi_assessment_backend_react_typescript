@@ -34,7 +34,7 @@ router.get('/', async(req: Request, res: Response) => {
 router.get('/:name', async(req : Request, res: Response) => {
   let result: any[] = []
   const sleepDurations = await SleepDuration.find({"createDate":{ $lt: new Date(), 
-    $gte: new Date(new Date().setDate(new Date().getDate()-7))}})
+    $gte: new Date(new Date().setDate(new Date().getDate()-7))}, "name": { $eq: req.params.name }  })
 
   sleepDurations.forEach((d) => {
     const match = result.find(o => o.name === d.name && o.gender === d.gender && moment(o.createDate).format('YYYMMDD') ===moment(d.createDate).format('YYYMMDD') );
